@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Outfit:wght@100..900&display=swap");
 p {
   font-size: 1.1rem;
 }
@@ -84,4 +84,26 @@ section span {
   display: flex;
   justify-content: flex-end;
   align-self: flex-end;
+}
+
+.srcCodeTitle {
+  display: flex;
+  align-items: center;
+}
+.line {
+  height: 5px;
+  width: 100%;
+  background-color: black;
+}
+.srcCodeTitle span {
+  min-width: max-content;
+  padding: 0;
+  margin: 10px;
+}
+
+.token.code,
+pre[class*="language-"],
+code[class*="language-"] {
+  font-family: "JetBrains Mono", monospace; /* Use the imported font */
+  font-size: 16px;
 }
