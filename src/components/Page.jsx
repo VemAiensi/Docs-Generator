@@ -29,8 +29,8 @@ public class Marasigan_CircularQueues
 		do 
 		{	
 			System.out.println();
-			System.out.print("Menu\n\t1. Enqueue\n\t2. Dequeue\n"
-					+ "\t3. Display Queue\n\t4. Exit\nEnter Choice [1..4]: ");
+			System.out.print("Menu\\n\\t1. Enqueue\\n\\t2. Dequeue\\n"
+					+ "\\t3. Display Queue\\n\\t4. Exit\\nEnter Choice [1..4]: ");
 			choice = in.nextInt();
 			switch (choice)
 			{
@@ -51,7 +51,7 @@ public class Marasigan_CircularQueues
 	{
 		
 		System.out.println();
-		System.out.println("\t-=ENQUEUE=-");
+		System.out.println("\\t-=ENQUEUE=-");
 		do 
 		{
 			System.out.print("Enter a number: ");
@@ -84,7 +84,7 @@ public class Marasigan_CircularQueues
 	static void Dequeue()
 	{
 		System.out.println();
-		System.out.println("\t-=DEQUEUE=-");
+		System.out.println("\\t-=DEQUEUE=-");
 		do 
 		{
 			if (front==-1)
@@ -106,7 +106,7 @@ public class Marasigan_CircularQueues
 				front = (front+1)%queue.length;
 			}
 			
-			System.out.print("\nDo you want to Dequeue again? Yes[1] No[0]: ");
+			System.out.print("\\nDo you want to Dequeue again? Yes[1] No[0]: ");
 			choice = in.nextInt();
 			
 		}while (choice == 1);
@@ -121,40 +121,40 @@ public class Marasigan_CircularQueues
 		static void ArrayPrint()
 		{
 			System.out.println();
-			System.out.print("\t+");
+			System.out.print("\\t+");
 			for (int i = 0; i < queue.length; i++)
 			{
 				System.out.print("-------+");
 			}
 			System.out.println();
 			
-			System.out.print("QUEUE:\t");
+			System.out.print("QUEUE:\\t");
 			System.out.print("|");
 			for (int i = 0; i < queue.length; i++)
 			{
 				if (queue[i] == 0)
-					System.out.print(" " + "\t|");
+					System.out.print(" " + "\\t|");
 				else
-					System.out.print(queue[i] + "\t|");
+					System.out.print(queue[i] + "\\t|");
 			}
 			System.out.println();
 			
-			System.out.print("\t+");
+			System.out.print("\\t+");
 			for (int i = 0; i < queue.length; i++)
 			{
 				System.out.print("-------+");
 			}
 			System.out.println();
 			
-			System.out.print("INDEX:\t");
+			System.out.print("INDEX:\\t");
 			System.out.print("|");
 			for (int i = 0; i < queue.length; i++)
 			{
-				System.out.print(i + "\t|");
+				System.out.print(i + "\\t|");
 			}
 			System.out.println();
 			
-			System.out.print("\t+");
+			System.out.print("\\t+");
 			for (int i = 0; i < queue.length; i++)
 			{
 				System.out.print("-------+");
@@ -188,11 +188,11 @@ public class Marasigan_CircularQueues
 		static void Status()
 		{
 			System.out.println();
-			System.out.print("[Status]\nQueue: ");
+			System.out.print("[Status]\\nQueue: ");
 			Display_Queue.LinearPrint();
 			
 			
-			System.out.print("Front index: " + front + "\t\t");
+			System.out.print("Front index: " + front + "\\t\\t");
 			if (Marasigan_CircularQueues.front == -1)
 			{
 			System.out.print("Data: No Data");
@@ -202,7 +202,7 @@ public class Marasigan_CircularQueues
 				System.out.print("Data: " + queue[front]);
 			}
 			
-			System.out.print("\nRear  index: " + rear + "\t\t");
+			System.out.print("\\nRear  index: " + rear + "\\t\\t");
 			if (Marasigan_CircularQueues.rear == -1)
 			{
 				System.out.print("Data: No Data");
@@ -229,13 +229,19 @@ public class Marasigan_CircularQueues
 	static void Exit()
 	{
 		System.out.println();
-		System.out.println("\tThank you po ^_^\n"
+		System.out.println("\\tThank you po ^_^\\n"
 				+ "   By: Marasigan, Vem Aiensi");
 		System.exit(1);
 	}
-	
-
 }`;
+
+  // function escapeSpecialChars(str) {
+  //   return str.replace(/[\\t\\n]/g, (match) => {
+  //     if (match === "\\t") return "\\\\t";
+  //     if (match === "\\n") return "\\\\n";
+  //     return match; // Should not happen, but good practice
+  //   });
+  // }
 
   const generatePDF = () => {
     if (divRef.current) {
