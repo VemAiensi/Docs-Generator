@@ -8,7 +8,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 const MyComponent = () => {
-  const divRef = useRef(null);
+  const divRef = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const javaCode = `package queues;
 
 import java.util.Scanner;
@@ -36,7 +36,7 @@ public class Marasigan_CircularQueues
 			{
 			case 1: Enqueue(); break;
 			case 2: Dequeue(); break;
-			case 3: //Display_Queue.CircleBeta();
+			case 3: 
 					Display_Queue.ArrayPrint();
 					Display_Queue.Status();
 					break;
@@ -106,7 +106,8 @@ public class Marasigan_CircularQueues
 				front = (front+1)%queue.length;
 			}
 			
-			System.out.print("\\nDo you want to Dequeue again? Yes[1] No[0]: ");
+			System.out.print("\\nDo you want to Dequeue again?" +
+			" Yes[1] No[0]: ");
 			choice = in.nextInt();
 			
 		}while (choice == 1);
@@ -213,17 +214,6 @@ public class Marasigan_CircularQueues
 			}
 			System.out.println();
 		}
-		
-		static void CircleBeta()
-		{
-			System.out.println();
-			System.out.println("   7    0");
-			System.out.println("6   " + queue[0] + "  " + queue[1]+ "   1");
-			System.out.println("  " +queue[2] + "      " + queue[3]);
-			System.out.println("  "+ queue[4] + "      " +  queue[5]);
-			System.out.println("5   " + queue[6] + "  " + queue[7] + "   2");
-			System.out.println("   4    3");
-		}
 	}
 	
 	static void Exit()
@@ -235,6 +225,17 @@ public class Marasigan_CircularQueues
 	}
 }`;
 
+  const splitCodeIntoParts = (code, maxLines) => {
+    const lines = code.split("\n");
+    const parts = [];
+    for (let i = 0; i < lines.length; i += maxLines) {
+      parts.push(lines.slice(i, i + maxLines).join("\n"));
+    }
+    return parts;
+  };
+
+  const javaCodeParts = splitCodeIntoParts(javaCode, 36);
+
   // function escapeSpecialChars(str) {
   //   return str.replace(/[\\t\\n]/g, (match) => {
   //     if (match === "\\t") return "\\\\t";
@@ -244,47 +245,49 @@ public class Marasigan_CircularQueues
   // }
 
   const generatePDF = () => {
-    if (divRef.current) {
-      const scale = 2; // Adjust scale for higher resolution
+    const pdf = new jsPDF("p", "mm", "letter"); // Portrait, millimeters, A4
+    const width = pdf.internal.pageSize.getWidth();
+    const height = pdf.internal.pageSize.getHeight();
 
-      html2canvas(divRef.current, { scale: scale })
-        .then((canvas) => {
-          const imgData = canvas.toDataURL("image/png");
+    divRef.map((divref, index) => {
+      if (divref.current) {
+        const scale = 2; // Adjust scale for higher resolution
 
-          const pdf = new jsPDF("p", "mm", "letter"); // Portrait, millimeters, A4
-          const width = pdf.internal.pageSize.getWidth();
-          const height = pdf.internal.pageSize.getHeight();
+        html2canvas(divref.current, { scale: scale })
+          .then((canvas) => {
+            const imgData = canvas.toDataURL("image/png");
 
-          // Get canvas dimensions AFTER scaling
-          const canvasWidth = canvas.width; // From html2canvas output
-          const canvasHeight = canvas.height;
+            // Get canvas dimensions AFTER scaling
+            const canvasWidth = canvas.width; // From html2canvas output
+            const canvasHeight = canvas.height;
 
-          // Calculate the available space on the PDF page (with margins)
-          const availableWidth = width;
-          const availableHeight = height;
+            // Calculate the available space on the PDF page (with margins)
+            const availableWidth = width;
+            const availableHeight = height;
 
-          // Calculate the scaling factor to fit within the available space
-          const scaleFactor = Math.min(
-            availableWidth / canvasWidth, // Scale to fit width
-            availableHeight / canvasHeight // Scale to fit height
-          );
+            // Calculate the scaling factor to fit within the available space
+            const scaleFactor = Math.min(
+              availableWidth / canvasWidth, // Scale to fit width
+              availableHeight / canvasHeight // Scale to fit height
+            );
 
-          // Calculate the image dimensions to maintain aspect ratio
-          const imgWidth = canvasWidth * scaleFactor;
-          const imgHeight = canvasHeight * scaleFactor;
+            // Calculate the image dimensions to maintain aspect ratio
+            const imgWidth = canvasWidth * scaleFactor;
+            const imgHeight = canvasHeight * scaleFactor;
 
-          // Center the image
-          const xPos = (width - imgWidth) / 2;
-          const yPos = (height - imgHeight) / 2;
+            // Center the image
+            const xPos = (width - imgWidth) / 2;
+            const yPos = (height - imgHeight) / 2;
 
-          pdf.addImage(imgData, "PNG", xPos, yPos, imgWidth, imgHeight);
-
-          pdf.save("my-document.pdf");
-        })
-        .catch((error) => {
-          console.error("Error generating PDF:", error);
-        });
-    }
+            pdf.addImage(imgData, "PNG", xPos, yPos, imgWidth, imgHeight);
+          })
+          .catch((error) => {
+            console.error("Error generating PDF:", error);
+          });
+      }
+      pdf.addPage("letter", "p");
+    });
+    pdf.save("my-document.pdf");
   };
 
   return (
@@ -303,7 +306,7 @@ public class Marasigan_CircularQueues
           gap: "10px",
         }}
       >
-        <div ref={divRef} className="page">
+        <div ref={divRef[0]} className="page">
           <div className="title">
             <div className="text">
               <h1>QUEUES</h1>
@@ -344,6 +347,41 @@ public class Marasigan_CircularQueues
           <div className="pNum-right">1</div>
         </div>
 
+        <div ref={divRef[1]} className="page">
+          <div className="srcCodeTitle">
+            <div className="line"></div>
+            <span>Source Code</span>
+            <div className="line"></div>
+          </div>
+
+          <SyntaxHighlighter language="java" style={oneLight}>
+            {javaCodeParts[0]}
+          </SyntaxHighlighter>
+        </div>
+
+        <div ref={divRef[2]} className="page">
+          <div className="srcCodeTitle">
+            <div className="line"></div>
+            <span>Source Code</span>
+            <div className="line"></div>
+          </div>
+
+          <SyntaxHighlighter language="java" style={oneLight}>
+            {javaCodeParts[1]}
+          </SyntaxHighlighter>
+        </div>
+        <div ref={divRef[3]} className="page">
+          <div className="srcCodeTitle">
+            <div className="line"></div>
+            <span>Source Code</span>
+            <div className="line"></div>
+          </div>
+
+          <SyntaxHighlighter language="java" style={oneLight}>
+            {javaCodeParts[2]}
+          </SyntaxHighlighter>
+        </div>
+
         <div className="page">
           <div className="srcCodeTitle">
             <div className="line"></div>
@@ -352,7 +390,30 @@ public class Marasigan_CircularQueues
           </div>
 
           <SyntaxHighlighter language="java" style={oneLight}>
-            {javaCode}
+            {javaCodeParts[3]}
+          </SyntaxHighlighter>
+        </div>
+
+        <div className="page">
+          <div className="srcCodeTitle">
+            <div className="line"></div>
+            <span>Source Code</span>
+            <div className="line"></div>
+          </div>
+
+          <SyntaxHighlighter language="java" style={oneLight}>
+            {javaCodeParts[4]}
+          </SyntaxHighlighter>
+        </div>
+        <div className="page">
+          <div className="srcCodeTitle">
+            <div className="line"></div>
+            <span>Source Code</span>
+            <div className="line"></div>
+          </div>
+
+          <SyntaxHighlighter language="java" style={oneLight}>
+            {javaCodeParts[5]}
           </SyntaxHighlighter>
         </div>
       </div>
