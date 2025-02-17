@@ -4,6 +4,7 @@ p {
   font-size: 1.1rem;
 }
 .page {
+  margin: 20px;
   width: 850px;
   height: 1100px;
   min-width: 850px;
