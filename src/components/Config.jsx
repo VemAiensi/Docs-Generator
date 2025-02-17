@@ -1,22 +1,41 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import "./config.css";
-function Config() {
-  const [url, setUrl] = useState(null);
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
-  function updateUrl(newUrl) {
-    setUrl(newUrl);
+function Config(props) {
+  const [url, setUrl] = useState("");
+  function updateUrl(event) {
+    setUrl(event.target.value);
   }
 
-  function generatePDF() {
-    alert("Hello PDF!");
+  const [title, setTitle] = useState("");
+  function updateTitle(event) {
+    setTitle(event.target.value);
+    props.formFncs[0](event.target.value);
   }
 
-  const generatefDF = async () => {
+  const [subtitle, setSubtitle] = useState("");
+  function updateSubtitle(event) {
+    setSubtitle(event.target.value);
+    props.formFncs[1](event.target.value);
+  }
+
+  const [src, setSrc] = useState("");
+  function updateSrc(event) {
+    setSrc(event.target.value);
+    props.formFncs[2](event.target.value);
+  }
+
+  async function generatePDF() {
+    const divRef = props.pageRefs;
+
     const pdf = new jsPDF("p", "mm", "letter"); // Portrait, millimeters, A4
     const width = pdf.internal.pageSize.getWidth();
     const height = pdf.internal.pageSize.getHeight();
 
+    //Acquiring all div references and adding it to the pdf
     for (let index = 0; index < divRef.length; index++) {
       const divref = divRef[index];
       if (divref.current) {
@@ -61,12 +80,17 @@ function Config() {
     }
 
     pdf.save("my-document.pdf");
-  };
+  }
 
   return (
     <div className="config">
       <h1>CONFIGURATION</h1>
+      <TextField label="Title" onChange={updateTitle} value={title} />
+      <TextField label="Subtitle" onChange={updateSubtitle} value={subtitle} />
       <TextField label="URL" onChange={updateUrl} value={url} />
+
+      <textarea onChange={updateSrc} value={src} />
+
       <Button variant="contained" onClick={generatePDF}>
         Export PDF
       </Button>
