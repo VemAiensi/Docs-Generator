@@ -84,11 +84,12 @@ function Config(props) {
 
   return (
     <div className="config">
-      <h1>CONFIGURATION</h1>
+      <h1>PAGE CONTENTS</h1>
       <TextField label="Title" onChange={updateTitle} value={title} />
       <TextField label="Subtitle" onChange={updateSubtitle} value={subtitle} />
       <TextField label="URL" onChange={updateUrl} value={url} />
 
+      <span>Source Code</span>
       <textarea onChange={updateSrc} value={src} />
 
       <Button variant="contained" onClick={generatePDF}>

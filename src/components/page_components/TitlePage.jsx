@@ -1,6 +1,7 @@
 import React from "react";
 import qrcode from "../../assets/qrcode.png";
 import sample from "../../assets/out1.png";
+import Content from "./Content";
 
 function TitlePage({ ref, title, subtitle }) {
   return (
@@ -18,13 +19,7 @@ function TitlePage({ ref, title, subtitle }) {
       </div>
 
       <div className="content">
-        <section>
-          <span>Overview</span>
-          <p>
-            Tackles about how queues work as well as terms related to queues and
-            apply it on code
-          </p>
-        </section>
+        <Content></Content>
         <section>
           <span>Objectives</span>
           <ul>

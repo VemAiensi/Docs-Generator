@@ -9,3 +9,13 @@
   justify-self: flex-end;
   margin-left: auto;
 }
+
+.config h1 {
+  text-align: center;
+}
+
+textarea {
+  height: 100%;
+  font-size: smaller;
+  padding: 2px;
+}

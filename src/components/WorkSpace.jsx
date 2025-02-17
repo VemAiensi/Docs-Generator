@@ -11,11 +11,13 @@ function WorkSpace(props) {
     <div
       className="workspace"
       style={{
+        direction: "rtl",
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
         gap: "10px",
         overflow: "auto",
+        paddingLeft: "50px",
       }}
     >
       <TitlePage ref={pageRefs[0]} title={title} subtitle={subtitle} />
