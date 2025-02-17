@@ -19,3 +19,67 @@ textarea {
   font-size: smaller;
   padding: 2px;
 }
+
+.file-input {
+  width: 100%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.file-input span {
+  margin-bottom: 10px;
+}
+
+.dropzone {
+  height: 50px;
+  padding: 10px;
+  width: 100%;
+  background-color: rgb(164, 213, 255);
+  box-sizing: border-box; /*padding fix*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.file-info {
+  background-color: rgb(164, 213, 255);
+  padding: 10px;
+  font-size: smaller;
+  border-radius: 10px;
+  width: max-content;
+  color: darkblue;
+}
+
+.selected {
+  position: relative; /* This is crucial for absolute positioning of the buttons */
+  /* Or block, depending on your layout needs */
+  width: 100%; /* Match the iframe width */
+  height: 100px; /* Match the iframe height */
+  margin-bottom: 10px;
+}
+
+.overlay-buttons {
+  position: absolute;
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  /* Or use bottom, right, or other positioning properties */
+  display: flex;
+  flex-direction: column; /* Makes it easier to arrange buttons */
+  gap: 10px; /* Spacing between buttons */
+  z-index: 1; /* Ensures buttons are on top of the iframe */
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.preview-icon,
+.delete-icon {
+  /* Style your buttons here */
+  /* Example: */
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+}

@@ -1,11 +1,11 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import "./page.css";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-function Page(props) {
+const Page = forwardRef((props, ref) => {
   return (
-    <div className="page">
+    <div ref={ref} className="page">
       <div className="srcCodeTitle">
         <div className="line"></div>
         <span>Source Code</span>
@@ -17,6 +17,6 @@ function Page(props) {
       </SyntaxHighlighter>
     </div>
   );
-}
+});
 
 export default Page;
