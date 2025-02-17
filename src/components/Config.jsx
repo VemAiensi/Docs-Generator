@@ -3,6 +3,7 @@ import { TextField, Button } from "@mui/material";
 import "./config.css";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import FileInput from "./FileInput";
 
 function Config(props) {
   const [url, setUrl] = useState("");
@@ -26,6 +27,10 @@ function Config(props) {
   function updateSrc(event) {
     setSrc(event.target.value);
     props.formFncs[2](event.target.value);
+  }
+  function updateSrcFromFile(newValue) {
+    setSrc(newValue);
+    props.formFncs[2](newValue);
   }
 
   async function generatePDF() {
@@ -89,7 +94,8 @@ function Config(props) {
       <TextField label="Subtitle" onChange={updateSubtitle} value={subtitle} />
       <TextField label="URL" onChange={updateUrl} value={url} />
 
-      <span>Source Code</span>
+      <FileInput fnc={updateSrcFromFile}></FileInput>
+      <span>File Content</span>
       <textarea onChange={updateSrc} value={src} />
 
       <Button variant="contained" onClick={generatePDF}>
