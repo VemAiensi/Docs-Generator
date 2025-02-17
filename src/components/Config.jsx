@@ -6,6 +6,10 @@ import jsPDF from "jspdf";
 import FileInput from "./FileInput";
 
 function Config(props) {
+  //Destructuring form functions
+  const [mainTitle, mainSubtitle, mainUrl, mainContents, mainSrc] =
+    props.formFncs;
+
   const [url, setUrl] = useState("");
   function updateUrl(event) {
     setUrl(event.target.value);
@@ -14,23 +18,23 @@ function Config(props) {
   const [title, setTitle] = useState("");
   function updateTitle(event) {
     setTitle(event.target.value);
-    props.formFncs[0](event.target.value);
+    mainTitle(event.target.value);
   }
 
   const [subtitle, setSubtitle] = useState("");
   function updateSubtitle(event) {
     setSubtitle(event.target.value);
-    props.formFncs[1](event.target.value);
+    mainSubtitle(event.target.value);
   }
 
   const [src, setSrc] = useState("");
   function updateSrc(event) {
     setSrc(event.target.value);
-    props.formFncs[2](event.target.value);
+    mainSrc(event.target.value);
   }
   function updateSrcFromFile(newValue) {
     setSrc(newValue);
-    props.formFncs[2](newValue);
+    mainSrc(newValue);
   }
 
   async function generatePDF() {

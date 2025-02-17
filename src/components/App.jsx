@@ -1,16 +1,11 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, createRef } from "react";
 import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg";
 import Config from "./Config";
 import WorkSpace from "./WorkSpace";
 function App() {
-  const [pageReferences, setRefs] = useState([useRef(null)]);
-  function updateRefs(newValue) {
-    setRefs(newValue);
-  }
-
-  const ref = useRef(null);
-
+  const pageReferences = useRef([useRef(null)]);
+  //title variables
   const [title, setTitle] = useState("Title Here");
   function updateTitle(newValue) {
     setTitle(newValue);
@@ -24,15 +19,18 @@ function App() {
 
   const [url, setUrl] = useState("something");
   function updateUrl(newValue) {
-    setUrl(newSValue);
+    setUrl(newValue);
   }
 
-  const [srcs, setSrc] = useState([
-    'System.out.print("Hello World");',
-    "Hey yo!",
-  ]);
+  //Content Variables
+  const [contents, setContents] = useState([{}]);
+  function updateContents(newValue) {
+    setContents(newValue);
+  }
+
+  const [srcs, setSrc] = useState(['System.out.print("Hello World");']);
   function updateSrc(newValue) {
-    function splitCodeIntoParts(code, maxLines) {
+    function splitCode(code, maxLines) {
       const lines = code.split("\n");
       const parts = [];
       for (let i = 0; i < lines.length; i += maxLines) {
@@ -41,24 +39,36 @@ function App() {
       return parts;
     }
 
-    setSrc(splitCodeIntoParts(newValue, 36));
+    const transformedCode = splitCode(newValue, 36);
+    setSrc(transformedCode);
+
+    //Create references depending on src length
+    const pageLength = transformedCode.length;
+    const references = Array.from({ length: pageLength + 1 }, () =>
+      createRef()
+    );
+    pageReferences.current = references;
+    console.log(references.length);
   }
 
-  // useEffect(() => {}, [title]);
+  const functions = [
+    updateTitle,
+    updateSubtitle,
+    updateUrl,
+    updateContents,
+    updateSrc,
+  ];
 
   return (
     <>
       <WorkSpace
-        pageRefs={pageReferences}
+        pageRefs={pageReferences.current}
         title={title}
         subtitle={subtitle}
+        contents={contents}
         srcs={srcs}
       />
-      <Config
-        pageRefs={pageReferences}
-        updateRefs={updateRefs}
-        formFncs={[updateTitle, updateSubtitle, updateSrc]}
-      />
+      <Config pageRefs={pageReferences.current} formFncs={functions} />
     </>
   );
 }

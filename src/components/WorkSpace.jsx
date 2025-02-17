@@ -22,7 +22,7 @@ function WorkSpace(props) {
     >
       <TitlePage ref={pageRefs[0]} title={title} subtitle={subtitle} />
       {srcs.map((src, index) => (
-        <Page key={index} src={src} />
+        <Page key={index} ref={pageRefs[index + 1]} src={src} />
       ))}
     </div>
   );
