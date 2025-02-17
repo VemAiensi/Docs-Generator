@@ -244,58 +244,14 @@ public class Marasigan_CircularQueues
   //   });
   // }
 
-  const generatePDF = () => {
-    const pdf = new jsPDF("p", "mm", "letter"); // Portrait, millimeters, A4
-    const width = pdf.internal.pageSize.getWidth();
-    const height = pdf.internal.pageSize.getHeight();
-
-    divRef.map((divref, index) => {
-      if (divref.current) {
-        const scale = 2; // Adjust scale for higher resolution
-
-        html2canvas(divref.current, { scale: scale })
-          .then((canvas) => {
-            const imgData = canvas.toDataURL("image/png");
-
-            // Get canvas dimensions AFTER scaling
-            const canvasWidth = canvas.width; // From html2canvas output
-            const canvasHeight = canvas.height;
-
-            // Calculate the available space on the PDF page (with margins)
-            const availableWidth = width;
-            const availableHeight = height;
-
-            // Calculate the scaling factor to fit within the available space
-            const scaleFactor = Math.min(
-              availableWidth / canvasWidth, // Scale to fit width
-              availableHeight / canvasHeight // Scale to fit height
-            );
-
-            // Calculate the image dimensions to maintain aspect ratio
-            const imgWidth = canvasWidth * scaleFactor;
-            const imgHeight = canvasHeight * scaleFactor;
-
-            // Center the image
-            const xPos = (width - imgWidth) / 2;
-            const yPos = (height - imgHeight) / 2;
-
-            pdf.addImage(imgData, "PNG", xPos, yPos, imgWidth, imgHeight);
-          })
-          .catch((error) => {
-            console.error("Error generating PDF:", error);
-          });
-      }
-      pdf.addPage("letter", "p");
-    });
-    pdf.save("my-document.pdf");
-  };
-
   return (
     <div
+      className="workspace"
       style={{
         display: "flex",
         alignItems: "flex-start",
         gap: "10px",
+        overflow: "auto",
       }}
     >
       <div
@@ -306,7 +262,7 @@ public class Marasigan_CircularQueues
           gap: "10px",
         }}
       >
-        <div ref={divRef[0]} className="page">
+        <div ref={divRef} className="page">
           <div className="title">
             <div className="text">
               <h1>QUEUES</h1>

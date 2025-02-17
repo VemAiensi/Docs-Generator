@@ -1,0 +1,11 @@
+.config {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  width: 500px;
+  background-color: white;
+  padding: 40px;
+  gap: 30px;
+  justify-self: flex-end;
+  margin-left: auto;
+}
