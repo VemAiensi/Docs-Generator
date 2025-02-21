@@ -1,9 +1,17 @@
 import React, { useState } from "react";
-import { TextField, Button } from "@mui/material";
+import {
+  TextField,
+  Button,
+  FormControl,
+  MenuItem,
+  Select,
+  InputLabel,
+} from "@mui/material";
 import "./config.css";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import FileInput from "./FileInput";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 function Config(props) {
   //Destructuring form functions
@@ -35,6 +43,33 @@ function Config(props) {
   function updateSrcFromFile(newValue) {
     setSrc(newValue);
     mainSrc(newValue);
+  }
+
+  const [contents, setContents] = useState([...props.contents]);
+  function appendContent() {
+    console.log(contents.length);
+    setContents([
+      ...contents,
+      { title: newContentTitle, type: newContentType, desc: newContentDesc },
+    ]);
+    mainContents([
+      ...contents,
+      { title: newContentTitle, type: newContentType, desc: newContentDesc },
+    ]);
+  }
+
+  const [newContentTitle, setContentTitle] = useState("");
+  function updateContentTitle(e) {
+    setContentTitle(e.target.value);
+  }
+  const [newContentType, setContentType] = useState("");
+  function updateContentType(e) {
+    setContentType(e.target.value);
+  }
+
+  const [newContentDesc, setContentDesc] = useState("");
+  function updateContentDesc(e) {
+    setContentDesc(e.target.value);
   }
 
   async function generatePDF() {
@@ -91,12 +126,65 @@ function Config(props) {
     pdf.save("my-document.pdf");
   }
 
+  function deleteContent(index) {
+    const updatedArray = contents.filter((_, i) => i !== index);
+    console.log(index, updatedArray);
+    setContents(updatedArray);
+    mainContents(updatedArray);
+  }
+
   return (
     <div className="config">
       <h1>PAGE CONTENTS</h1>
       <TextField label="Title" onChange={updateTitle} value={title} />
       <TextField label="Subtitle" onChange={updateSubtitle} value={subtitle} />
       <TextField label="URL" onChange={updateUrl} value={url} />
+
+      <div>
+        Existing Contents
+        {contents.map((content, index) => {
+          return (
+            <div key={index}>
+              <span>{content.title}</span>
+              <Button onClick={() => deleteContent(index)}>
+                <DeleteForeverIcon />
+              </Button>
+            </div>
+          );
+        })}
+      </div>
+
+      <FormControl>
+        <InputLabel id="ct">Content Type</InputLabel>
+
+        <Select
+          labelId="ct"
+          label="Content Type"
+          onChange={updateContentType}
+          value={newContentType}
+        >
+          <MenuItem value="list">List</MenuItem>
+          <MenuItem value="img">Image</MenuItem>
+          <MenuItem value="text">Text</MenuItem>
+        </Select>
+      </FormControl>
+
+      <TextField
+        fullWidth
+        label="Content Title"
+        onChange={updateContentTitle}
+        value={newContentTitle}
+      ></TextField>
+      <TextField
+        fullWidth
+        label="Content Description"
+        onChange={updateContentDesc}
+        value={newContentDesc}
+      ></TextField>
+
+      <Button variant="contained" onClick={appendContent}>
+        Add content
+      </Button>
 
       <FileInput fnc={updateSrcFromFile}></FileInput>
       <span>File Content</span>

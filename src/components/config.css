@@ -8,6 +8,7 @@
   gap: 30px;
   justify-self: flex-end;
   margin-left: auto;
+  overflow-y: auto;
 }
 
 .config h1 {
@@ -82,4 +83,10 @@ textarea {
   padding: 8px;
   border: none;
   cursor: pointer;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

@@ -1,8 +1,7 @@
 import { useState, useRef, createRef } from "react";
-import reactLogo from "../assets/react.svg";
-import viteLogo from "/vite.svg";
 import Config from "./Config";
 import WorkSpace from "./WorkSpace";
+
 function App() {
   const pageReferences = useRef([useRef(null)]);
   //title variables
@@ -23,7 +22,9 @@ function App() {
   }
 
   //Content Variables
-  const [contents, setContents] = useState([{}]);
+  const [contents, setContents] = useState([
+    { title: "Objectives", type: "text", desc: "Something Something" },
+  ]);
   function updateContents(newValue) {
     setContents(newValue);
   }
@@ -68,7 +69,11 @@ function App() {
         contents={contents}
         srcs={srcs}
       />
-      <Config pageRefs={pageReferences.current} formFncs={functions} />
+      <Config
+        pageRefs={pageReferences.current}
+        contents={contents}
+        formFncs={functions}
+      />
     </>
   );
 }

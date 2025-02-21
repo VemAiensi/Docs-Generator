@@ -1,9 +1,9 @@
 import React from "react";
 import qrcode from "../../assets/qrcode.png";
-import sample from "../../assets/out1.png";
+
 import Content from "./Content";
 
-function TitlePage({ ref, title, subtitle }) {
+function TitlePage({ ref, title, subtitle, contents }) {
   return (
     <div ref={ref} className="page">
       <div className="title">
@@ -19,20 +19,16 @@ function TitlePage({ ref, title, subtitle }) {
       </div>
 
       <div className="content">
-        <Content></Content>
-        <section>
-          <span>Objectives</span>
-          <ul>
-            <li>Enqueue</li>
-            <li>Dequeue</li>
-          </ul>
-        </section>
-        <section className="output">
-          <span>Sample Output</span>
-          <div className="sOut">
-            <img src={sample} alt="" />
-          </div>
-        </section>
+        {contents.map((content, index) => {
+          return (
+            <Content
+              key={index}
+              title={content.title}
+              type={content.type}
+              desc={content.desc}
+            ></Content>
+          );
+        })}
       </div>
 
       <div className="pNum-right">1</div>
