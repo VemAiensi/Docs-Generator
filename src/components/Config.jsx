@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  TextField,
-  Button,
-  FormControl,
-  MenuItem,
-  Select,
-  InputLabel,
-} from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import "./config.css";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -119,7 +112,7 @@ function Config(props) {
           return (
             <div className="existingContents" key={index}>
               <span>{content.title}</span>
-              <Button onClick={() => deleteContent(index)}>
+              <Button color="error" onClick={() => deleteContent(index)}>
                 <DeleteForeverIcon />
               </Button>
             </div>

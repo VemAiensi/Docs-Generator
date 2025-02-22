@@ -25,10 +25,11 @@ function Content({ title, type, desc }) {
       case "list":
         return (
           <section>
-            <span>Objectives</span>
+            <span>{title}</span>
             <ul>
-              <li>Enqueue</li>
-              <li>Dequeue</li>
+              {desc.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
             </ul>
           </section>
         );

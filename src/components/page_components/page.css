@@ -21,7 +21,7 @@ p {
 .title {
   display: flex;
   gap: 10px;
-  margin-bottom: 80px;
+  margin-bottom: 30px;
 }
 .text {
   flex-grow: 1;

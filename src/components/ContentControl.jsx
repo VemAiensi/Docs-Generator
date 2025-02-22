@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
@@ -8,6 +8,9 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import ImageIcon from "@mui/icons-material/Image";
 import { TextField, Button } from "@mui/material";
 import "./config.css";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
+
 const actions = [
   { icon: <TextFieldsIcon />, name: "Text" },
   { icon: <FormatListBulletedIcon />, name: "List" },
@@ -54,6 +57,39 @@ export default function ControlledOpenSpeedDial(props) {
     }
   }
 
+  //Input fields by type
+  const [newContentDesc, setContentDesc] = useState("");
+  function addTextDesc(e) {
+    setContentDesc(e.target.value);
+  }
+
+  const [list, setList] = useState([]);
+  function appendList() {
+    setList([...list, listItem]);
+    setContentDesc([...list, listItem]);
+    setListItem("");
+  }
+
+  const [listItem, setListItem] = useState("");
+  function updateListItem(e) {
+    setListItem(e.target.value);
+  }
+
+  function deleteItem(index) {
+    const updatedArray = list.filter((_, i) => i !== index);
+    console.log(index, updatedArray);
+    setList(updatedArray);
+    setContentDesc(updatedArray);
+  }
+
+  const buttonRef = useRef(null);
+  function handleKeyDown(event) {
+    if (event.key === "Enter") {
+      buttonRef.current.click();
+    }
+  }
+
+  //Append function
   function appendContent() {
     console.log("Previous Contents:", contents);
     updateContents([
@@ -65,14 +101,14 @@ export default function ControlledOpenSpeedDial(props) {
       },
     ]);
     toggleInputDisplay();
-    setContentTitle("");
-    setContentDesc("");
-    setContentType("");
-  }
 
-  const [newContentDesc, setContentDesc] = useState("");
-  function updateContentDesc(e) {
-    setContentDesc(e.target.value);
+    //reset all
+    setContentTitle("");
+    setContentType("");
+    setContentDesc("");
+
+    setList([]);
+    setListItem("");
   }
 
   function renderInput(type) {
@@ -82,27 +118,42 @@ export default function ControlledOpenSpeedDial(props) {
           <TextField
             fullWidth
             label="Text"
-            onChange={updateContentDesc}
+            onChange={addTextDesc}
             value={newContentDesc}
           />
         );
       case "List":
         return (
-          <TextField
-            fullWidth
-            label="List"
-            onChange={updateContentDesc}
-            value={newContentDesc}
-          />
+          <>
+            {list[0] && (
+              <ul>
+                {list.map((item, index) => (
+                  <li key={index}>
+                    <span>{item}</span>
+                    <Button color="error" onClick={() => deleteItem(index)}>
+                      <DeleteForeverIcon />
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div className="listControl">
+              <TextField
+                fullWidth
+                label="List"
+                onChange={updateListItem}
+                value={listItem}
+                onKeyDown={handleKeyDown}
+              />
+              <Button variant="contained" ref={buttonRef} onClick={appendList}>
+                <KeyboardReturnIcon />
+              </Button>
+            </div>
+          </>
         );
       case "Image":
         return (
-          <TextField
-            fullWidth
-            label="Image Source"
-            onChange={updateContentDesc}
-            value={newContentDesc}
-          />
+          <TextField fullWidth label="Image Source" value={newContentDesc} />
         );
     }
   }
@@ -136,7 +187,7 @@ export default function ControlledOpenSpeedDial(props) {
             value={newContentTitle}
           ></TextField>
           {renderInput(input)}
-          <Button variant="contained" onClick={appendContent}>
+          <Button color="success" variant="contained" onClick={appendContent}>
             Add content
           </Button>
         </div>
