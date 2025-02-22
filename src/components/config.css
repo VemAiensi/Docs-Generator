@@ -85,8 +85,13 @@ textarea {
   cursor: pointer;
 }
 
-.content {
+.content,
+.contentControl {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.existingContents span {
+  font-weight: bolder;
 }

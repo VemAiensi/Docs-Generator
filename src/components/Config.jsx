@@ -117,7 +117,7 @@ function Config(props) {
         Existing Contents
         {props.contents.map((content, index) => {
           return (
-            <div key={index}>
+            <div className="existingContents" key={index}>
               <span>{content.title}</span>
               <Button onClick={() => deleteContent(index)}>
                 <DeleteForeverIcon />

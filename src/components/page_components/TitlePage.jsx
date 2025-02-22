@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import qrcode from "../../assets/qrcode.png";
 
 import Content from "./Content";
@@ -21,14 +21,17 @@ function TitlePage(props) {
       </div>
 
       <div className="content">
-        {contents.map((content, index) => (
-          <Content
-            key={index}
-            title={content.title}
-            type={content.type}
-            desc={content.desc}
-          ></Content>
-        ))}
+        {contents.map((content, index) => {
+          console.log(content);
+          return (
+            <Content
+              key={index}
+              title={content.title}
+              type={content.type}
+              desc={content.desc}
+            ></Content>
+          );
+        })}
       </div>
 
       <div className="pNum-right">1</div>

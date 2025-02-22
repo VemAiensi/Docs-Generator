@@ -7,7 +7,7 @@ import TextFieldsIcon from "@mui/icons-material/TextFields";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import ImageIcon from "@mui/icons-material/Image";
 import { TextField, Button } from "@mui/material";
-
+import "./config.css";
 const actions = [
   { icon: <TextFieldsIcon />, name: "Text" },
   { icon: <FormatListBulletedIcon />, name: "List" },
@@ -32,7 +32,7 @@ export default function ControlledOpenSpeedDial(props) {
   const [input, setInputs] = React.useState(null);
   function updateInputs(inputType) {
     setInputs(inputType);
-    updateContentType();
+    updateContentType(inputType);
     handleClose();
     toggleInputDisplay();
   }
@@ -46,11 +46,11 @@ export default function ControlledOpenSpeedDial(props) {
   function updateContentType(newVal) {
     switch (newVal) {
       case "Text":
-        setContentType("text");
+        return setContentType("text");
       case "List":
-        setContentType("list");
+        return setContentType("list");
       case "Image":
-        setContentType("img");
+        return setContentType("img");
     }
   }
 
@@ -65,6 +65,9 @@ export default function ControlledOpenSpeedDial(props) {
       },
     ]);
     toggleInputDisplay();
+    setContentTitle("");
+    setContentDesc("");
+    setContentType("");
   }
 
   const [newContentDesc, setContentDesc] = useState("");
@@ -78,7 +81,7 @@ export default function ControlledOpenSpeedDial(props) {
         return (
           <TextField
             fullWidth
-            label="Content Description"
+            label="Text"
             onChange={updateContentDesc}
             value={newContentDesc}
           />
@@ -87,7 +90,7 @@ export default function ControlledOpenSpeedDial(props) {
         return (
           <TextField
             fullWidth
-            label="Content Description"
+            label="List"
             onChange={updateContentDesc}
             value={newContentDesc}
           />
@@ -96,7 +99,7 @@ export default function ControlledOpenSpeedDial(props) {
         return (
           <TextField
             fullWidth
-            label="Content Description"
+            label="Image Source"
             onChange={updateContentDesc}
             value={newContentDesc}
           />
@@ -125,7 +128,7 @@ export default function ControlledOpenSpeedDial(props) {
           ))}
         </SpeedDial>
       ) : (
-        <>
+        <div className="contentControl">
           <TextField
             fullWidth
             label="Content Title"
@@ -136,7 +139,7 @@ export default function ControlledOpenSpeedDial(props) {
           <Button variant="contained" onClick={appendContent}>
             Add content
           </Button>
-        </>
+        </div>
       )}
     </Box>
   );
