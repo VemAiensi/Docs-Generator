@@ -8,19 +8,18 @@ function TitlePage(props) {
 
   return (
     <div ref={ref} className="page">
-      <div className="title">
-        <div className="text">
-          <h1>{title}</h1>
-          <p>
-            <em>{subtitle}</em>
-          </p>
-        </div>
-        <div className="qr">
-          <img src={qrcode} alt="Placeholder" />
-        </div>
-      </div>
-
       <div className="content">
+        <div className="title">
+          <div className="text">
+            <h1>{title}</h1>
+            <p>
+              <em>{subtitle}</em>
+            </p>
+          </div>
+          <div className="qr">
+            <img src={qrcode} alt="Placeholder" />
+          </div>
+        </div>
         {contents.map((content, index) => {
           console.log(content);
           return (
@@ -32,9 +31,9 @@ function TitlePage(props) {
             ></Content>
           );
         })}
-      </div>
 
-      <div className="pNum-right">1</div>
+        <div className="pNum-right">1</div>
+      </div>
     </div>
   );
 }

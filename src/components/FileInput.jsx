@@ -14,7 +14,9 @@ function FileInput(props) {
         setFileContent(content);
         props.fnc(content);
       };
-      reader.readAsText(file);
+      props.label === "Image URL"
+        ? reader.readAsDataURL(file)
+        : reader.readAsText(file);
     });
     // Do something with the files
   }, []);
@@ -28,7 +30,7 @@ function FileInput(props) {
 
   return (
     <div className="file-input">
-      <span>Source Code</span>
+      <span>{props.label}</span>
       <div className="dropzone" {...getRootProps()}>
         <input {...getInputProps()} />
         {isDragActive ? (

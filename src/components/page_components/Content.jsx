@@ -17,7 +17,7 @@ function Content({ title, type, desc }) {
           <section className="output">
             <span>{title}</span>
             <div className="sOut">
-              <img src={sample} alt="" />
+              <img src={desc} alt="" />
             </div>
           </section>
         );

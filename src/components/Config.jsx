@@ -111,10 +111,10 @@ function Config(props) {
         {props.contents.map((content, index) => {
           return (
             <div className="existingContents" key={index}>
-              <span>{content.title}</span>
               <Button color="error" onClick={() => deleteContent(index)}>
                 <DeleteForeverIcon />
               </Button>
+              <span>{content.title}</span>
             </div>
           );
         })}
@@ -125,7 +125,7 @@ function Config(props) {
         updateContents={mainContents}
       ></ContentControl>
 
-      <FileInput fnc={updateSrcFromFile}></FileInput>
+      <FileInput fnc={updateSrcFromFile} label="Source Code"></FileInput>
       <span>File Content</span>
       <textarea onChange={updateSrc} value={src} />
 

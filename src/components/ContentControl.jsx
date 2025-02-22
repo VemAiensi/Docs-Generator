@@ -10,6 +10,7 @@ import { TextField, Button } from "@mui/material";
 import "./config.css";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
+import FileInput from "./FileInput";
 
 const actions = [
   { icon: <TextFieldsIcon />, name: "Text" },
@@ -152,9 +153,7 @@ export default function ControlledOpenSpeedDial(props) {
           </>
         );
       case "Image":
-        return (
-          <TextField fullWidth label="Image Source" value={newContentDesc} />
-        );
+        return <FileInput fnc={setContentDesc} label="Image URL" />;
     }
   }
 
