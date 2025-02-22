@@ -1,4 +1,4 @@
-import { useState, useRef, createRef } from "react";
+import { useState, useRef, createRef, useEffect } from "react";
 import Config from "./Config";
 import WorkSpace from "./WorkSpace";
 
@@ -23,11 +23,16 @@ function App() {
 
   //Content Variables
   const [contents, setContents] = useState([
-    { title: "Objectives", type: "text", desc: "Something Something" },
+    { title: "Hello World", type: "text", desc: "ggness" },
   ]);
   function updateContents(newValue) {
-    setContents(newValue);
+    console.log("Update: ", newValue);
+    setContents([...newValue]);
+    // console.log("New Length: ", contents.length);
   }
+  useEffect(() => {
+    console.log("Updated Contents:", contents);
+  }, [contents]);
 
   const [srcs, setSrc] = useState(['System.out.print("Hello World");']);
   function updateSrc(newValue) {

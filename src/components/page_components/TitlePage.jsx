@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import qrcode from "../../assets/qrcode.png";
 
 import Content from "./Content";
 
-function TitlePage({ ref, title, subtitle, contents }) {
+function TitlePage(props) {
+  const { ref, title, subtitle, contents } = props;
+
   return (
     <div ref={ref} className="page">
       <div className="title">
@@ -19,16 +21,14 @@ function TitlePage({ ref, title, subtitle, contents }) {
       </div>
 
       <div className="content">
-        {contents.map((content, index) => {
-          return (
-            <Content
-              key={index}
-              title={content.title}
-              type={content.type}
-              desc={content.desc}
-            ></Content>
-          );
-        })}
+        {contents.map((content, index) => (
+          <Content
+            key={index}
+            title={content.title}
+            type={content.type}
+            desc={content.desc}
+          ></Content>
+        ))}
       </div>
 
       <div className="pNum-right">1</div>

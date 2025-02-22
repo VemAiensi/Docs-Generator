@@ -12,6 +12,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import FileInput from "./FileInput";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import ContentControl from "./ContentControl";
 
 function Config(props) {
   //Destructuring form functions
@@ -45,31 +46,10 @@ function Config(props) {
     mainSrc(newValue);
   }
 
-  const [contents, setContents] = useState([...props.contents]);
-  function appendContent() {
-    console.log(contents.length);
-    setContents([
-      ...contents,
-      { title: newContentTitle, type: newContentType, desc: newContentDesc },
-    ]);
-    mainContents([
-      ...contents,
-      { title: newContentTitle, type: newContentType, desc: newContentDesc },
-    ]);
-  }
-
-  const [newContentTitle, setContentTitle] = useState("");
-  function updateContentTitle(e) {
-    setContentTitle(e.target.value);
-  }
-  const [newContentType, setContentType] = useState("");
-  function updateContentType(e) {
-    setContentType(e.target.value);
-  }
-
-  const [newContentDesc, setContentDesc] = useState("");
-  function updateContentDesc(e) {
-    setContentDesc(e.target.value);
+  function deleteContent(index) {
+    const updatedArray = props.contents.filter((_, i) => i !== index);
+    console.log(index, updatedArray);
+    mainContents(updatedArray);
   }
 
   async function generatePDF() {
@@ -126,13 +106,6 @@ function Config(props) {
     pdf.save("my-document.pdf");
   }
 
-  function deleteContent(index) {
-    const updatedArray = contents.filter((_, i) => i !== index);
-    console.log(index, updatedArray);
-    setContents(updatedArray);
-    mainContents(updatedArray);
-  }
-
   return (
     <div className="config">
       <h1>PAGE CONTENTS</h1>
@@ -142,7 +115,7 @@ function Config(props) {
 
       <div>
         Existing Contents
-        {contents.map((content, index) => {
+        {props.contents.map((content, index) => {
           return (
             <div key={index}>
               <span>{content.title}</span>
@@ -154,37 +127,10 @@ function Config(props) {
         })}
       </div>
 
-      <FormControl>
-        <InputLabel id="ct">Content Type</InputLabel>
-
-        <Select
-          labelId="ct"
-          label="Content Type"
-          onChange={updateContentType}
-          value={newContentType}
-        >
-          <MenuItem value="list">List</MenuItem>
-          <MenuItem value="img">Image</MenuItem>
-          <MenuItem value="text">Text</MenuItem>
-        </Select>
-      </FormControl>
-
-      <TextField
-        fullWidth
-        label="Content Title"
-        onChange={updateContentTitle}
-        value={newContentTitle}
-      ></TextField>
-      <TextField
-        fullWidth
-        label="Content Description"
-        onChange={updateContentDesc}
-        value={newContentDesc}
-      ></TextField>
-
-      <Button variant="contained" onClick={appendContent}>
-        Add content
-      </Button>
+      <ContentControl
+        contents={props.contents}
+        updateContents={mainContents}
+      ></ContentControl>
 
       <FileInput fnc={updateSrcFromFile}></FileInput>
       <span>File Content</span>
