@@ -19,7 +19,7 @@
 
 ### 🛠️ Installation
 
-Installation is pretty straight forward
+If you want your own local instance, installation is pretty straight forward
 
 - Clone repository and install dependencies
 
@@ -40,3 +40,7 @@ $ npm run dev
 ### 📜 License
 
 Before running our program, please refer to this [License](https://github.com/vemaiensi/docs-generator/blob/main/LICENSE).
+
+### Why am I doing this?
+
+We need to compile all activities from the very start of our college journey. And I'm a bit lazy to do and create my compilation in existing tools or programs like canva or word. That's why I created my own documenting tool to ensure that every page would be consistent in my styles. I also created this to practice using react and external libraries like Material UI.
