@@ -73,6 +73,7 @@ function App() {
         subtitle={subtitle}
         contents={contents}
         srcs={srcs}
+        url={url}
       />
       <Config
         pageRefs={pageReferences.current}

@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Outfit:wght@100..900&display=swap");
+
 p {
   font-size: 1.1rem;
 }
@@ -19,7 +20,6 @@ p {
 }
 .title {
   display: flex;
-  gap: 10px;
   margin-bottom: 30px;
 }
 .text {
@@ -39,15 +39,16 @@ p {
 }
 
 .title .qr {
-  width: 90px;
-  height: 90px;
+  display: flex;
+  box-sizing: border-box;
   align-self: flex-end;
-  padding-bottom: 5px;
+  border: 5px solid black;
+  padding: 5px;
+}
+.qr canvas {
+  margin: none;
 }
 
-.qr img {
-  height: 100%;
-}
 .content {
   height: 100%;
   display: flex;

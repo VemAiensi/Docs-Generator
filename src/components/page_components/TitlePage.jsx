@@ -1,10 +1,10 @@
 import React from "react";
 import qrcode from "../../assets/qrcode.png";
-
+import QRCode from "./QRCode";
 import Content from "./Content";
 
 function TitlePage(props) {
-  const { ref, title, subtitle, contents } = props;
+  const { ref, title, subtitle, contents, url } = props;
 
   return (
     <div ref={ref} className="page">
@@ -17,7 +17,7 @@ function TitlePage(props) {
             </p>
           </div>
           <div className="qr">
-            <img src={qrcode} alt="Placeholder" />
+            <QRCode value={url} />
           </div>
         </div>
         {contents.map((content, index) => {

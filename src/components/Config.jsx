@@ -15,6 +15,7 @@ function Config(props) {
   const [url, setUrl] = useState("");
   function updateUrl(event) {
     setUrl(event.target.value);
+    mainUrl(event.target.value);
   }
 
   const [title, setTitle] = useState("");
