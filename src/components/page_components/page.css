@@ -42,8 +42,7 @@ p {
   display: flex;
   box-sizing: border-box;
   align-self: flex-end;
-  border: 5px solid black;
-  padding: 5px;
+  margin-left: 10px;
 }
 .qr canvas {
   margin: none;

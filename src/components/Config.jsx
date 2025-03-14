@@ -1,5 +1,16 @@
-import React, { useState } from "react";
-import { TextField, Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {
+  TextField,
+  Button,
+  FormControl,
+  MenuItem,
+  Select,
+  InputLabel,
+  RadioGroup,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+} from "@mui/material";
 import "./config.css";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -27,8 +38,47 @@ function Config(props) {
   const [subtitle, setSubtitle] = useState("");
   function updateSubtitle(event) {
     setSubtitle(event.target.value);
-    mainSubtitle(event.target.value);
   }
+
+  const courses1 = ["Introduction to Computing", "Fundamentals of Programming"];
+  const courses2 = [
+    "Intermediate Programming",
+    "Data Structures and Algorithms",
+    "Numerical Methods",
+  ];
+
+  const [ay, setAY] = useState("2021-2022");
+  function updateAY(e) {
+    setAY(e.target.value);
+  }
+
+  const [sem, setSem] = useState("1st");
+  function updateSem(e) {
+    setSem(e.target.value);
+  }
+
+  const [course, setCourse] = useState("");
+  function updateCourse(e) {
+    setCourse(e.target.value);
+  }
+  const [courses, setCourses] = useState(courses1);
+
+  useEffect(() => {
+    setSubtitle(course + " - " + sem + " " + ay);
+    mainSubtitle(course + " - " + sem + " " + ay);
+  }, [ay, sem, course]);
+
+  useEffect(() => {
+    const semay = sem + ay;
+    switch (semay) {
+      case "1st Sem2021-2022":
+        setCourses(courses1);
+        break;
+      case "2nd Sem2021-2022":
+        setCourses(courses2);
+        break;
+    }
+  }, [sem, ay]);
 
   const [src, setSrc] = useState("");
   function updateSrc(event) {
@@ -105,6 +155,74 @@ function Config(props) {
       <h1>PAGE CONTENTS</h1>
       <TextField label="Title" onChange={updateTitle} value={title} />
       <TextField label="Subtitle" onChange={updateSubtitle} value={subtitle} />
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Course Name</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={course}
+          onChange={updateCourse}
+          label="Academic Year"
+        >
+          {courses.map((courseName, index) => (
+            <MenuItem key={index + "courseName"} value={courseName}>
+              {courseName}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+      <div className="subtitle-selection">
+        <FormControl>
+          <FormLabel id="academic-year-label">A.Y.</FormLabel>
+          <RadioGroup
+            aria-labelledby="academic-year-label"
+            defaultValue={ay}
+            name="radio-buttons-group"
+            onChange={updateAY}
+          >
+            <FormControlLabel
+              value="2021-2022"
+              control={<Radio />}
+              label="2021-2022"
+            />
+            <FormControlLabel
+              value="2022-2023"
+              control={<Radio />}
+              label="2022-2023"
+            />
+            <FormControlLabel
+              value="2023-2024"
+              control={<Radio />}
+              label="2023-2024"
+            />
+            <FormControlLabel
+              value="2024-2025"
+              control={<Radio />}
+              label="2024-2025"
+            />
+          </RadioGroup>
+        </FormControl>
+
+        <FormControl>
+          <FormLabel id="Sem-label">Semester</FormLabel>
+          <RadioGroup
+            aria-labelledby="Sem-label"
+            defaultValue={sem}
+            name="sem-radio"
+            onChange={updateSem}
+          >
+            <FormControlLabel value="1st Sem" control={<Radio />} label="1st" />
+            <FormControlLabel value="2nd Sem" control={<Radio />} label="2nd" />
+            <FormControlLabel
+              value="Summer"
+              control={<Radio />}
+              label="Summer"
+            />
+          </RadioGroup>
+        </FormControl>
+      </div>
+
       <TextField label="URL" onChange={updateUrl} value={url} />
 
       <div>
