@@ -5,13 +5,22 @@ import Content from "./Content";
 
 function TitlePage(props) {
   const { ref, title, subtitle, contents, url } = props;
+  const [fontSize, setFontSize] = React.useState("3rem");
+
+  React.useEffect(() => {
+    if (title.length > 20) {
+      setFontSize("2.5rem");
+    } else {
+      setFontSize("3rem");
+    }
+  }, [title]);
 
   return (
     <div ref={ref} className="page">
       <div className="content">
         <div className="title">
           <div className="text">
-            <h1>{title}</h1>
+            <h1 style={{ fontSize }}>{title}</h1>
             <p>
               <em>{subtitle}</em>
             </p>
@@ -32,7 +41,7 @@ function TitlePage(props) {
           );
         })}
 
-        <div className="pNum-right">1</div>
+        {/* <div className="pNum-right">1</div> */}
       </div>
     </div>
   );

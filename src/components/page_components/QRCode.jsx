@@ -11,7 +11,7 @@ function QRCodeComponent({ value }) {
         canvasRef.current,
         value, //Value
         {
-          width: 90, // Default size
+          width: 115, // Default size
           margin: 0, // Add margin around the QR Code
           color: {
             dark: "#000000", // Foreground color
