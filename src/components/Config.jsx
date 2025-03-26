@@ -154,7 +154,7 @@ function Config(props) {
     <div className="config">
       <h1>PAGE CONTENTS</h1>
       <TextField label="Title" onChange={updateTitle} value={title} />
-      <TextField label="Subtitle" onChange={updateSubtitle} value={subtitle} />
+
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Course Name</InputLabel>
         <Select

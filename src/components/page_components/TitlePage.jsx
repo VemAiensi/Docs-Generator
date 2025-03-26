@@ -29,17 +29,19 @@ function TitlePage(props) {
             <QRCode value={url} />
           </div>
         </div>
-        {contents.map((content, index) => {
-          console.log(content);
-          return (
-            <Content
-              key={index}
-              title={content.title}
-              type={content.type}
-              desc={content.desc}
-            ></Content>
-          );
-        })}
+        <div className="details">
+          {contents.map((content, index) => {
+            console.log(content);
+            return (
+              <Content
+                key={index}
+                title={content.title}
+                type={content.type}
+                desc={content.desc}
+              ></Content>
+            );
+          })}
+        </div>
 
         {/* <div className="pNum-right">1</div> */}
       </div>

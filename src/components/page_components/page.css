@@ -1,15 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Outfit:wght@100..900&display=swap");
 @font-face {
   font-family: "Aptos";
   src: url("../../assets/fonts/Aptos-Display.ttf") format("truetype");
 }
 @font-face {
+  font-family: "Aptos-Bold";
+  src: url("../../assets/fonts/Aptos-Bold.ttf") format("truetype");
+}
+@font-face {
   font-family: "Young-Serif";
   src: url("../../assets/fonts/YoungSerif-Regular.ttf") format("truetype");
 }
-p {
-  font-size: 1.1rem;
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../../assets/fonts/JetBrainsMono-Regular.ttf");
 }
 .page {
   direction: ltr;
@@ -21,7 +25,7 @@ p {
   max-width: 850px;
   max-height: 1100px;
   background-color: white;
-  padding: 70px;
+  padding: 1in;
   display: flex;
   flex-direction: column;
 }
@@ -46,7 +50,6 @@ p {
   margin-bottom: 10px;
 }
 .text p {
-  font-style: italic;
   font-family: "Aptos";
   font-size: 1.2em;
 }
@@ -65,22 +68,37 @@ p {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 .content ul {
   padding-left: 20px;
 }
-section {
+.details {
   display: flex;
   flex-direction: column;
+
+  justify-content: space-evenly;
+  height: 100%;
+}
+section {
+  display: flex;
+  gap: 10px;
+  font-size: 1.2em;
+  flex-direction: column;
   align-items: flex-start;
+  font-family: "Aptos";
 }
 
 section span {
-  font-size: 1.1rem;
-  background-color: rgb(194, 194, 194);
+  font-family: "Aptos-Bold";
+
+  /* background-color: rgb(194, 194, 194);
   padding: 3px 10px 3px 10px;
-  border-radius: 10px;
+  border-radius: 10px; */
+}
+
+section p {
+  max-width: 600px;
+  text-align: justify;
 }
 
 .output span {
@@ -116,11 +134,12 @@ section span {
   min-width: max-content;
   padding: 0;
   margin: 10px;
+  font-family: "Young-Serif";
 }
 
 .token.code,
 pre[class*="language-"],
 code[class*="language-"] {
-  font-family: "JetBrains Mono", monospace; /* Use the imported font */
+  font-family: "JetBrains Mono", monospace !important; /* Use the imported font */
   font-size: 16px;
 }
