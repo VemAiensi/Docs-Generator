@@ -12,9 +12,15 @@ const Page = forwardRef((props, ref) => {
         <div className="line"></div>
       </div>
 
-      <SyntaxHighlighter language="java" style={oneLight}>
+      <SyntaxHighlighter language={props.lang} style={oneLight}>
         {props.src}
       </SyntaxHighlighter>
+
+      {props.truncate && (
+        <div style={{ textAlign: "center", fontStyle: "italic" }}>
+          View full source at the remote repository...
+        </div>
+      )}
     </div>
   );
 });

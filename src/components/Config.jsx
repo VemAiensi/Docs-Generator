@@ -20,7 +20,7 @@ import ContentControl from "./ContentControl";
 
 function Config(props) {
   //Destructuring form functions
-  const [mainTitle, mainSubtitle, mainUrl, mainContents, mainSrc] =
+  const [mainTitle, mainSubtitle, mainUrl, mainContents, mainSrc, mainSrcLang] =
     props.formFncs;
 
   const [url, setUrl] = useState("");
@@ -104,7 +104,8 @@ function Config(props) {
     const height = pdf.internal.pageSize.getHeight();
 
     //Acquiring all div references and adding it to the pdf
-    for (let index = 0; index < divRef.length; index++) {
+    for (let index = 0; index < 10; index++) {
+      //Setting limit to 10 for compliance to page limit
       const divref = divRef[index];
       if (divref.current) {
         const scale = 2; // Adjust scale for higher resolution
@@ -138,7 +139,7 @@ function Config(props) {
           pdf.addImage(imgData, "PNG", xPos, yPos, imgWidth, imgHeight);
 
           // Add a new page if it's not the last div
-          if (index < divRef.length - 1) {
+          if (index < 9) {
             pdf.addPage("letter", "p");
           }
         } catch (error) {
@@ -244,7 +245,11 @@ function Config(props) {
         updateContents={mainContents}
       ></ContentControl>
 
-      <FileInput fnc={updateSrcFromFile} label="Source Code"></FileInput>
+      <FileInput
+        fnc={updateSrcFromFile}
+        langChange={mainSrcLang}
+        label="Source Code"
+      ></FileInput>
       <span>File Content</span>
       <textarea onChange={updateSrc} value={src} />
 

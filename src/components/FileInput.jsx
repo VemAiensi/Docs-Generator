@@ -2,7 +2,6 @@ import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 function FileInput(props) {
-  const [fileContent, setFileContent] = useState(null);
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
       const reader = new FileReader();
@@ -11,12 +10,22 @@ function FileInput(props) {
       reader.onerror = () => console.log("The error is exe");
       reader.onload = (e) => {
         const content = e.target.result;
-        setFileContent(content);
+
         props.fnc(content);
       };
-      props.label === "Image URL"
-        ? reader.readAsDataURL(file)
-        : reader.readAsText(file);
+      if (props.label === "Image URL") {
+        reader.readAsDataURL(file);
+      } else {
+        // console.log("Hello you're reading a file");
+        reader.readAsText(file);
+        function getFileExtension(fileName) {
+          const parts = fileName.split(".");
+          const fEx = parts[parts.length - 1];
+          // console.log(fEx);
+          return fEx;
+        }
+        props.langChange(getFileExtension(acceptedFiles[0].name));
+      }
     });
     // Do something with the files
   }, []);

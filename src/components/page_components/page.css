@@ -141,5 +141,5 @@ section p {
 pre[class*="language-"],
 code[class*="language-"] {
   font-family: "JetBrains Mono", monospace !important; /* Use the imported font */
-  font-size: 16px;
+  font-size: 13px;
 }

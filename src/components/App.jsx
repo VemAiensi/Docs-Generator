@@ -45,7 +45,7 @@ function App() {
       return parts;
     }
 
-    const transformedCode = splitCode(newValue, 36);
+    const transformedCode = splitCode(newValue, 33);
     setSrc(transformedCode);
 
     //Create references depending on src length
@@ -57,12 +57,18 @@ function App() {
     console.log(references.length);
   }
 
+  const [srcLanguage, setSrcLanguage] = useState("java");
+  function updateSrcLanguage(newValue) {
+    setSrcLanguage(newValue);
+  }
+
   const functions = [
     updateTitle,
     updateSubtitle,
     updateUrl,
     updateContents,
     updateSrc,
+    updateSrcLanguage,
   ];
 
   return (
@@ -74,6 +80,7 @@ function App() {
         contents={contents}
         srcs={srcs}
         url={url}
+        srcLang={srcLanguage}
       />
       <Config
         pageRefs={pageReferences.current}
