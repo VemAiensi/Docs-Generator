@@ -104,7 +104,11 @@ function Config(props) {
     const height = pdf.internal.pageSize.getHeight();
 
     //Acquiring all div references and adding it to the pdf
-    for (let index = 0; index < 10; index++) {
+    for (
+      let index = 0;
+      index < (divRef.length < 10 ? divRef.length : 10);
+      index++
+    ) {
       //Setting limit to 10 for compliance to page limit
       const divref = divRef[index];
       if (divref.current) {
@@ -139,7 +143,7 @@ function Config(props) {
           pdf.addImage(imgData, "PNG", xPos, yPos, imgWidth, imgHeight);
 
           // Add a new page if it's not the last div
-          if (index < 9) {
+          if (index < (divRef.length < 10 ? divRef.length - 1 : 9)) {
             pdf.addPage("letter", "p");
           }
         } catch (error) {
